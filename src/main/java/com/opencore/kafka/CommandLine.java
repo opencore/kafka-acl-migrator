@@ -6,7 +6,7 @@ public class CommandLine {
 
   public static void main(String[] args) {
     if (args.length != 3) {
-      System.out.println("Usage: aclexporter import|export aclfile");
+      System.out.println("Usage: aclexporter import|export aclfile bootstrapservers");
       System.exit(1);
     }
     String command = args[0];
