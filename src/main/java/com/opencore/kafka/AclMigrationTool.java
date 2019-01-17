@@ -19,7 +19,7 @@ import org.apache.kafka.clients.admin.DescribeAclsResult;
 import org.apache.kafka.common.acl.AclBinding;
 import org.apache.kafka.common.acl.AclBindingFilter;
 
-public class AclMigrationTool {
+public class AclMigrationTool implements AutoCloseable{
   private AdminClient adminClient;
   private Gson gson = new GsonBuilder().create();
 
@@ -31,6 +31,10 @@ public class AclMigrationTool {
     Properties props = new Properties();
     props.setProperty("bootstrap.servers", bootstrapServers);
     adminClient = AdminClient.create(props);
+  }
+
+  public void close() {
+    adminClient.close();
   }
 
   public void importAcls(File aclFile) {
@@ -63,6 +67,5 @@ public class AclMigrationTool {
     } catch (IOException e) {
       System.out.println(e.getMessage());
     }
-
   }
 }

@@ -13,14 +13,14 @@ public class CommandLine {
     String aclFile = args[1];
     String bootstrapServers = args[2];
 
-    AclMigrationTool migrationTool = new AclMigrationTool(bootstrapServers);
-
-    if (command.equals("export")) {
-      migrationTool.exportAcls(new File(aclFile));
-    } else if (command.equals("import")) {
-      migrationTool.importAcls(new File(aclFile));
-    } else {
-      System.out.println("Usage: aclexporter import|export aclfile");
+    try (AclMigrationTool migrationTool = new AclMigrationTool(bootstrapServers)) {
+      if (command.equals("export")) {
+        migrationTool.exportAcls(new File(aclFile));
+      } else if (command.equals("import")) {
+        migrationTool.importAcls(new File(aclFile));
+      } else {
+        System.out.println("Usage: aclexporter import|export aclfile");
+      }
     }
   }
 }
